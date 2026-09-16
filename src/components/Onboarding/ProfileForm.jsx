@@ -7,8 +7,19 @@ const MIN_AGE = 6;
 const MAX_AGE = 18;
 
 export default function ProfileForm() {
-  const { completeProfile } = useApp();
-  const [form, setForm] = useState({ gender: 'female', age: '', height: '', weight: '', mealsPerDay: '3' });
+  const { profile, completeProfile, setStage } = useApp();
+  const isEditing = Boolean(profile);
+  const [form, setForm] = useState(() =>
+    profile
+      ? {
+          gender: profile.gender,
+          age: String(profile.age),
+          height: String(profile.height),
+          weight: String(profile.weight),
+          mealsPerDay: String(profile.mealsPerDay),
+        }
+      : { gender: 'female', age: '', height: '', weight: '', mealsPerDay: '3' }
+  );
   const [errors, setErrors] = useState({});
 
   function update(key, val) {
@@ -45,7 +56,11 @@ export default function ProfileForm() {
   }
 
   return (
-    <ScreenShell eyebrow="01 가입 · 목표 설정" title="몇 가지만 알려주세요" subtitle="목표를 계산하는 데만 사용해요">
+    <ScreenShell
+      eyebrow="01 가입 · 목표 설정"
+      title={isEditing ? '정보를 수정해 주세요' : '몇 가지만 알려주세요'}
+      subtitle="목표를 계산하는 데만 사용해요"
+    >
       <form className="profile-form" onSubmit={handleSubmit} noValidate>
         <fieldset>
           <legend>성별</legend>
@@ -93,8 +108,13 @@ export default function ProfileForm() {
         </fieldset>
 
         <Button type="submit" size="lg" fullWidth>
-          목표 계산하기
+          {isEditing ? '수정한 정보로 목표 다시 계산하기' : '목표 계산하기'}
         </Button>
+        {isEditing && (
+          <Button type="button" variant="ghost" size="lg" fullWidth onClick={() => setStage('search')}>
+            취소하고 돌아가기
+          </Button>
+        )}
       </form>
     </ScreenShell>
   );

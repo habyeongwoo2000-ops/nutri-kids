@@ -34,6 +34,9 @@ export default function GoalsSummary() {
       <Button size="lg" fullWidth onClick={() => setStage('search')}>
         오늘 먹은 음식 입력하러 가기
       </Button>
+      <Button variant="ghost" fullWidth onClick={() => setStage('profile')}>
+        내 정보 다시 수정하기
+      </Button>
     </ScreenShell>
   );
 }

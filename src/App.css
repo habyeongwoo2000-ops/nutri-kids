@@ -15,6 +15,17 @@
   margin-bottom: 22px;
 }
 
+.screen-head-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.screen-head-action button {
+  white-space: nowrap;
+}
+
 .eyebrow {
   font-size: 13px;
   font-weight: 700;
